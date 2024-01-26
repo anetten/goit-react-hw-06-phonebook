@@ -3,8 +3,12 @@ import css from './Contacts.module.css';
 import { deleteContact } from '../../redux/contacts/contactsReducer';
 
 export const Contacts = () => {
-  const contacts = useSelector(store => store.contacts.contacts);
+  const { contacts, filter } = useSelector(store => store.contacts);
   const dispatch = useDispatch();
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.trim().toLowerCase())
+  );
 
   const onDeleteContact = id => {
     dispatch(deleteContact(id));
@@ -13,7 +17,7 @@ export const Contacts = () => {
   return (
     <div className={css.contacts}>
       <ul>
-        {contacts.map(contact => (
+        {filteredContacts.map(contact => (
           <li key={contact.id}>
             {contact.name}: {contact.number}
             <button onClick={() => onDeleteContact(contact.id)}>Delete</button>
