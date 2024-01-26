@@ -1,9 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import css from './Contacts.module.css';
+import { deleteContact } from '../../redux/contacts/contactsReducer';
 
-export const Contacts = ({ contacts, onDeleteContact }) => {
-  const state = useSelector(store => store);
-  console.log('state:', state);
+export const Contacts = () => {
+  const contacts = useSelector(store => store.contacts.contacts);
+  const dispatch = useDispatch();
+
+  const onDeleteContact = id => {
+    dispatch(deleteContact(id));
+  };
 
   return (
     <div className={css.contacts}>

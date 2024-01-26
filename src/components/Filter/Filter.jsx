@@ -1,6 +1,15 @@
 import css from './Filter.module.css';
+import { setFilter } from '../../redux/contacts/contactsReducer';
+import { useDispatch } from 'react-redux';
 
-export const Filter = ({ handleChangeFilter, filterValue }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+
+  const handleChangeFilter = event => {
+    const value = event.target.value;
+    dispatch(setFilter(value));
+  };
+
   return (
     <div className={css.filter_container}>
       <label className={css.filterLabel}>Find contacts by name</label>
@@ -9,7 +18,6 @@ export const Filter = ({ handleChangeFilter, filterValue }) => {
         type="text"
         name="keyword"
         onChange={handleChangeFilter}
-        value={filterValue}
         className={css.filter_input}
       />
     </div>
